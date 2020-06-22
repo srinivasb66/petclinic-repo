@@ -1,9 +1,9 @@
 //noinspection GroovyAssignabilityCheck
 pipeline {
-    agent
-    {
-        label 'Linux'
-    }
+   // agent
+   // {
+    //    label 'Linux'
+   // }
     parameters {
         string(name: 'version', defaultValue: '', description: 'Version override appended to maven version number')
                } 
@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build docker images') {
                   environment {
-                  nexus_docker_repo = 'internal-KNexus-alb-690010959.us-east-1.elb.amazonaws.com:8888'
+                  nexus_docker_repo = 'nexus.ingress.test.dcpgreendot.com:8083'
                   dcp_demo_app_tag = 'petclinic'
                   PETCLINIC_VERSION = sh (
                       script: 'xf=`ls target/*.jar` && echo $xf | awk \'{print substr($1,1,match($1,/.[^.]*$/)-1)}\' | awk \'{print substr($1,match($1,/[0-9]/))}\'', 
@@ -31,7 +31,7 @@ pipeline {
                               }       
             
             steps {               
-              withCredentials([usernamePassword(credentialsId: 'nexususer', usernameVariable: 'nexus_docker_repo_user', passwordVariable: 'nexus_docker_repo_password')]){
+              withCredentials([usernamePassword(credentialsId: 'NexusID', usernameVariable: 'nexus_docker_repo_user', passwordVariable: 'nexus_docker_repo_password')]){
 
                sh '''#!/bin/bash -l
 
