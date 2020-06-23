@@ -1,8 +1,8 @@
 //noinspection GroovyAssignabilityCheck
 pipeline {
-   // agent
-   // {
-    //    label 'Linux'
+    agent any
+  //  {
+   //     label 'Linux'
    // }
     parameters {
         string(name: 'version', defaultValue: '', description: 'Version override appended to maven version number')
