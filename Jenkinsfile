@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build docker images') {
                   environment {
-                  nexus_docker_repo = 'nexus.ingress.test.dcpgreendot.com:8083'
+                  nexus_docker_repo = 'docker-nexus.ingress.test.dcpgreendot.com'
                   dcp_demo_app_tag = 'petclinic'
                   PETCLINIC_VERSION = sh (
                       script: 'xf=`ls target/*.jar` && echo $xf | awk \'{print substr($1,1,match($1,/.[^.]*$/)-1)}\' | awk \'{print substr($1,match($1,/[0-9]/))}\'', 
