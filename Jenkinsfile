@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 // git branch: 'master', url: 'https://github.com/ovkhasch/petclinic-repo'
-				sh 'yum install maven -y'
+				//sh 'yum install maven -y'
                 sh 'mvn clean package -DskipTests=true'
             }
         }
