@@ -41,7 +41,7 @@ spec:
         PROJECT_ID = 'PROJECT-ID'
         CLUSTER_NAME = 'CLUSTER-NAME'
         LOCATION = 'CLUSTER-LOCATION'
-        CREDENTIALS_ID = 'us-con-gcp-npr-0000266-072920'
+        CREDENTIALS_ID=credentials("gcp-key")
     }
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
