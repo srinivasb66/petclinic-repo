@@ -1,4 +1,7 @@
 FROM openjdk:alpine
+RUN apk --no-cache add --upgrade \
+    curl \
+    bash 
 WORKDIR /tmp
 COPY target/*.jar app.jar
 #COPY ./deployemnt.yaml /tmp/deployemnt.yaml
