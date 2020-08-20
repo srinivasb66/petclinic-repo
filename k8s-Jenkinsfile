@@ -41,7 +41,8 @@ spec:
         PROJECT_ID = "us-con-gcp-npr-0000266-072920"
         CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
-        CREDENTIALS_ID='gcp-key'
+        CREDENTIALS_ID=credentials('gcp_key')
+
     }
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
@@ -78,10 +79,22 @@ spec:
         }
       }
     }
-    stage('Deploy to GKE') {
-            steps{
-                  step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: ${CREDENTIALS_ID} , verifyDeployments: true])
-            }
+    stage ('Authenticating Google SDK') {
+         steps {
+           container('maven') {
+             //dir(WORKING_DIR) {
+               sh 'cp ${CREDENTIALS_ID} ./serviceaccount.json'
+               sh("gcloud auth activate-service-account --key-file=./serviceaccount.json")
+               sh(gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
+             //}
+           }
+           sh 'rm ./serviceaccount.json'
+         }
+       }
+    //stage('Deploy to GKE') {
+            //steps{
+            //      step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: ${CREDENTIALS_ID} , verifyDeployments: true])
+            //}
         }
   }
 }
