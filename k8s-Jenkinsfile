@@ -27,7 +27,7 @@ spec:
     - name: dockersock
       mountPath: /var/run/docker.sock
   - name: google
-    image: google/cloud-sdk:alpine
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
     command: ['cat']
     tty: true
   volumes:
@@ -88,13 +88,13 @@ spec:
          steps {
            container('google') {
                sh("gcloud auth activate-service-account --key-file=${CREDENTIALS_ID}")
-               sh('gcloud components install kubectl')
+               //sh('gcloud components install kubectl')
                sh '''
-                apk add docker
-                apk add openrc
-                rc-update add docker boot
-                service docker start &
-                sleep 60
+                #apk add docker
+                #apk add openrc
+                #rc-update add docker boot
+                #service docker start &
+                #sleep 60
                 docker build .
                 docker push gcr.io/us-con-gcp-npr-0000266-072920/petclinc:v1
                 '''
