@@ -52,7 +52,7 @@ spec:
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
   } 
  stages {
-  /*  stage('Build') {
+   stage('Build') {
       steps {
         container('maven') {
           sh 'mvn clean package --no-transfer-progress --batch-mode -DskipTests=true'
@@ -60,7 +60,7 @@ spec:
       }
     }
 
-    stage('Build docker images') {
+   /*  stage('Build docker images') {
       environment {
         nexus_docker_repo = 'docker.ingress.ddop.dcpgreendot.com'
         dcp_demo_app_tag = 'petclinic'
@@ -89,6 +89,10 @@ spec:
            container('google') {
                sh("gcloud auth activate-service-account --key-file=${CREDENTIALS_ID}")
                sh('gcloud components install kubectl')
+               sh '''
+                docker build .
+                docker push gcr.io/us-con-gcp-npr-0000266-072920/petclinc:v1
+                '''
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh('kubectl get nodes')
                sh('kubectl apply -f test.yaml')
