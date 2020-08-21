@@ -41,7 +41,7 @@ spec:
       containers:
         - name: app
           #image: brightbox/rails-hello-world
-          image: gcr.io/us-con-gcp-npr-0000266-072920/petclinc:v1
+          image: gcr.io/us-con-gcp-npr-0000266-072920/hello-app:v1
           ports:
             - name: web
               containerPort: 3000
