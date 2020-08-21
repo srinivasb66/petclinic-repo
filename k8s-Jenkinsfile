@@ -45,13 +45,13 @@ spec:
         PROJECT_ID = "us-con-gcp-npr-0000266-072920"
         CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
-        CREDENTIALS_ID='gcp_key'
+        CREDENTIALS_ID=credentials('gcp_key')
 
     }
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
   } 
-  stages {
+  /*stages {
     stage('Build') {
       steps {
         container('maven') {
@@ -82,12 +82,12 @@ spec:
           }
         }
       }
-    }
+    } */
     stage ('Authenticating Google SDK') {
          steps {
            container('google') {
              //dir(WORKING_DIR) {
-               sh ("cp ${CREDENTIALS_ID} ./serviceaccount.json")
+               sh ("cat ${CREDENTIALS_ID}  > ./serviceaccount.json")
                sh("gcloud auth activate-service-account --key-file=./serviceaccount.json")
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
              //}
