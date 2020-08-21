@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: bicollect/mvn-gcloud:latest
+    image: maven:alpine
     command:
     - cat
     tty: true
@@ -26,6 +26,10 @@ spec:
     volumeMounts:
     - name: dockersock
       mountPath: /var/run/docker.sock
+  - name: google
+    image: google/cloud-sdk
+    command: ['cat']
+    tty: true
   volumes:
   - name: dockersock
     hostPath:
