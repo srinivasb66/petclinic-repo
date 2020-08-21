@@ -90,7 +90,7 @@ spec:
              //dir(WORKING_DIR) {
                sh ("cat ${CREDENTIALS_ID}  > ./serviceaccount.json")
                sh ("cat ./serviceaccount.json")
-               sh('gcloud auth activate-service-account --key-file=./serviceaccount.json')
+               sh("gcloud auth activate-service-account --key-file=./serviceaccount.json")
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
              //}
            }
