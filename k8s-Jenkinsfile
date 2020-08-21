@@ -91,6 +91,7 @@ spec:
                sh('gcloud components install kubectl')
                sh '''
                 apk add docker
+                apk add openrc
                 rc-update add docker boot
                 service docker start
                 docker build .
