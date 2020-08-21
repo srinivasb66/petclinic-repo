@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
   - name: maven
-    image: maven:alpine
+    image: bicollect/mvn-gcloud:latest
     command:
     - cat
     tty: true
