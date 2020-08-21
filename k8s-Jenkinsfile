@@ -27,7 +27,7 @@ spec:
     - name: dockersock
       mountPath: /var/run/docker.sock
   - name: google
-    image: google/cloud-sdk
+    image: google/cloud-sdk:alpine
     command: ['cat']
     tty: true
   volumes:
