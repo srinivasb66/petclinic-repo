@@ -45,7 +45,7 @@ spec:
         PROJECT_ID = "us-con-gcp-npr-0000266-072920"
         CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
-        CREDENTIALS_ID=credentials('gcp_key')
+        CREDENTIALS_ID='gcp_key'
 
     }
   parameters {
