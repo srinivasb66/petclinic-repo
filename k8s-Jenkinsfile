@@ -91,7 +91,9 @@ spec:
                sh ("cp ${CREDENTIALS_ID}  ./serviceaccount.json")
                sh ("cat ./serviceaccount.json")
                sh("gcloud auth activate-service-account --key-file=${CREDENTIALS_ID}")
+               sh('gcloud components install kubectl')
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
+               sh('kubectl get nodes')
              //}
            }
            sh 'rm ./serviceaccount.json'
