@@ -85,7 +85,7 @@ spec:
     }
     stage ('Authenticating Google SDK') {
          steps {
-           container('maven') {
+           container('google') {
              //dir(WORKING_DIR) {
                sh 'cp ${CREDENTIALS_ID} ./serviceaccount.json'
                sh("gcloud auth activate-service-account --key-file=./serviceaccount.json")
