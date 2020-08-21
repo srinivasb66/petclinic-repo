@@ -51,8 +51,8 @@ spec:
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
   } 
-  /*stages {
-    stage('Build') {
+ stages {
+  /*  stage('Build') {
       steps {
         container('maven') {
           sh 'mvn clean package --no-transfer-progress --batch-mode -DskipTests=true'
@@ -82,7 +82,8 @@ spec:
           }
         }
       }
-    } */
+    } 
+    */
     stage ('Authenticating Google SDK') {
          steps {
            container('google') {
