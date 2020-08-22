@@ -46,3 +46,5 @@ spec:
             - name: web
               containerPort: 3000
               protocol: TCP
+      imagePullSecrets:
+        - name: gcr-json-key
