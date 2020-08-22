@@ -95,7 +95,7 @@ spec:
                kubectl create secret -n test docker-registry gcr-json-key \
                 --docker-server=gcr.io \
                 --docker-username=_json_key \
-                --docker-password="${CREDENTIALS_ID}" \
+                --docker-password="${dockerKey}" \
                 --docker-email=pocep-demo@us-con-gcp-npr-0000266-072920.iam.gserviceaccount.com
                 '''
                //sh('gcloud auth configure-docker')
