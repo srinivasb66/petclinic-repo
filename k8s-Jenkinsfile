@@ -92,7 +92,7 @@ spec:
                //sh('gcloud components install kubectl')
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh'''
-               kubectl create secret docker-registry gcr-json-key \
+               kubectl create secret -n test docker-registry gcr-json-key \
                 --docker-server=gcr.io \
                 --docker-username=_json_key \
                 --docker-password="${CREDENTIALS_ID}" \
