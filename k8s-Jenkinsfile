@@ -46,6 +46,7 @@ spec:
         CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
         CREDENTIALS_ID=credentials('gcp_key')
+        dockerKey=credentials('dockerKey')
 
     }
   parameters {
