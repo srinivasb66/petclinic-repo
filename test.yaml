@@ -27,7 +27,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-world
-  namespace: my-namespace
+  namespace: test
 spec:
   replicas: 1
   selector:
