@@ -99,7 +99,9 @@ spec:
                 --docker-email=pocep-demo@us-con-gcp-npr-0000266-072920.iam.gserviceaccount.com
                 '''
                sh('kubectl get secret')
-               sh ("kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gcr-json-key"}]}'")
+               sh '''
+               kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gcr-json-key"}]}'
+               '''
                //sh('gcloud auth configure-docker')
                sh('kubectl get nodes')
                sh('kubectl apply -f test.yaml')
