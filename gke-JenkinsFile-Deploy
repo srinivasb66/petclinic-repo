@@ -9,30 +9,11 @@ metadata:
     jenkins-job-name: ${JOB_NAME}
 spec:
   containers:
-  - name: maven
-    image: maven:alpine
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - name: mvnrepository
-      mountPath: /root/.m2/repository
-      subPath: .m2
-  - name: docker
-    image: docker
+  - name: google
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
     command: ['cat']
     tty: true
-    volumeMounts:
-    - name: dockersock
-      mountPath: /var/run/docker.sock
-  volumes:
-  - name: dockersock
-    hostPath:
-      path: /var/run/docker.sock
-  - name: mvnrepository
-    persistentVolumeClaim:
-      claimName: jenkins-jenkins-home
-
+ 
 """
     }
   }
