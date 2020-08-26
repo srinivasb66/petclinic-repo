@@ -1,0 +1,65 @@
+pipeline {
+  agent {
+    kubernetes {
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins-job-name: ${JOB_NAME}
+spec:
+  containers:
+  - name: maven
+    image: maven:alpine
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: mvnrepository
+      mountPath: /root/.m2/repository
+      subPath: .m2
+  - name: docker
+    image: docker
+    command: ['cat']
+    tty: true
+    volumeMounts:
+    - name: dockersock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: dockersock
+    hostPath:
+      path: /var/run/docker.sock
+  - name: mvnrepository
+    persistentVolumeClaim:
+      claimName: jenkins-jenkins-home
+
+"""
+    }
+  }
+  parameters {
+    string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
+  } 
+  environment {
+        PROJECT_ID = "us-con-gcp-npr-0000266-072920"
+        CLUSTER_NAME = "pocep-demo"
+        LOCATION = "us-east1-b"
+        CREDENTIALS_ID=credentials('pocep-key')
+        //dockerKey=credentials('dockerKey')
+
+    }
+  stages {
+      stage ('Deploy to GKE') {
+         steps {
+           container('google') {
+               sh("gcloud auth activate-service-account --key-file=${CREDENTIALS_ID}")
+               sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
+               sh('kubectl get nodes')
+               sh('kubectl apply -f test.yaml')
+             
+           }
+           
+         }
+       }
+    
+  }
+}
