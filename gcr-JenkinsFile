@@ -71,11 +71,10 @@ spec:
         //withCredentials([usernamePassword(credentialsId: 'NexusID', usernameVariable: 'nexus_docker_repo_user', passwordVariable: 'nexus_docker_repo_password')]){
           container('docker') {
             sh '''
-              echo "Publish Docker Image to Nexus"
-              echo "$(cat $CREDENTIALS_ID)"
+              echo "Publish Docker Image to GCR"
               docker login -u _json_key -p "$(cat $CREDENTIALS_ID)" ${google_repo}
               docker build -t ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f Dockerfile .
-              docker push ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
+              docker push ${google_repo}/$PROJECT_ID/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
             '''
           }
         }
