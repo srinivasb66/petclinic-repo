@@ -16,7 +16,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 3000
+    targetPort: 8080
     protocol: TCP
   selector:
     app: petclinic
@@ -44,5 +44,5 @@ spec:
           image: gcr.io/us-con-gcp-npr-0000266-072920/petclinic:2.1.0.BUILD-SNAPSHOT0.1
           ports:
             - name: web
-              containerPort: 3000
+              containerPort: 8080
               protocol: TCP
