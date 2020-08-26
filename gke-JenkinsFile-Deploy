@@ -33,7 +33,7 @@ spec:
          steps {
            container('google') {
                sh'''
-               gcloud auth activate-service-account --key-file="$(cat $CREDENTIALS_ID)"
+               gcloud auth activate-service-account --key-file="${CREDENTIALS_ID}"
                '''
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh('kubectl get nodes')
