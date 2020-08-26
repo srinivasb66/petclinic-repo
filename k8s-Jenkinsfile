@@ -45,15 +45,15 @@ spec:
         PROJECT_ID = "us-con-gcp-npr-0000266-072920"
         CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
-        CREDENTIALS_ID=credentials('gcp_key')
-        dockerKey=credentials('dockerKey')
+        CREDENTIALS_ID=credentials('pocep-key')
+        //dockerKey=credentials('dockerKey')
 
     }
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
   } 
  stages {
-    /* stage('Build') {
+     stage('Build') {
       steps {
         container('maven') {
           sh 'mvn clean package --no-transfer-progress --batch-mode -DskipTests=true'
@@ -63,7 +63,8 @@ spec:
 
     stage('Build docker images') {
       environment {
-        nexus_docker_repo = 'docker.ingress.ddop.dcpgreendot.com'
+        //nexus_docker_repo = 'docker.ingress.ddop.dcpgreendot.com'
+        google_repo = 'gcr.io'
         dcp_demo_app_tag = 'petclinic'
         PETCLINIC_VERSION = sh (
             script: 'xf=`ls target/*.jar` && echo $xf | awk \'{print substr($1,1,match($1,/.[^.]*$/)-1)}\' | awk \'{print substr($1,match($1,/[0-9]/))}\'', 
@@ -72,21 +73,21 @@ spec:
         PETCLINIC_VERSION_CUSTOM = "${PETCLINIC_VERSION}${params.version}"
       }
       steps {      
-        withCredentials([usernamePassword(credentialsId: 'NexusID', usernameVariable: 'nexus_docker_repo_user', passwordVariable: 'nexus_docker_repo_password')]){
+        //withCredentials([usernamePassword(credentialsId: 'NexusID', usernameVariable: 'nexus_docker_repo_user', passwordVariable: 'nexus_docker_repo_password')]){
           container('docker') {
             sh '''
-              echo "Publish Docker Image to Nexus"
-              docker login -u ${nexus_docker_repo_user} -p ${nexus_docker_repo_password} ${nexus_docker_repo}
-              docker build -t ${nexus_docker_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f Dockerfile .
-              docker push ${nexus_docker_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
+              echo "Publish Docker Image to GCR"
+              docker login -u _json_key -p "${cat CREDENTIALS_ID}" ${google_repo}
+              docker build -t ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f Dockerfile .
+              docker push ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
             '''
           
           }
         }
       }
     } 
-    */
-    stage ('Authenticating and deploy') {
+    
+    /*stage ('Authenticating and deploy') {
          steps {
            container('google') {
                sh("gcloud auth activate-service-account --key-file=${CREDENTIALS_ID}")
@@ -111,6 +112,6 @@ spec:
             //steps{
             //      step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: ${CREDENTIALS_ID} , verifyDeployments: true])
             //}
-        //}
+        //} */
   }
 }
