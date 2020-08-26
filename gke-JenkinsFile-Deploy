@@ -32,7 +32,9 @@ spec:
       stage ('Deploy to GKE') {
          steps {
            container('google') {
-               sh("gcloud auth activate-service-account --key-file="$(cat $CREDENTIALS_ID)"")
+               sh'''
+               gcloud auth activate-service-account --key-file="$(cat $CREDENTIALS_ID)"
+               '''
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh('kubectl get nodes')
                sh('kubectl apply -f test.yaml')
