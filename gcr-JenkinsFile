@@ -39,6 +39,14 @@ spec:
   parameters {
     string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
   } 
+  environment {
+        PROJECT_ID = "us-con-gcp-npr-0000266-072920"
+        CLUSTER_NAME = "pocep-demo"
+        LOCATION = "us-east1-b"
+        CREDENTIALS_ID=credentials('pocep-key')
+        //dockerKey=credentials('dockerKey')
+
+    }
   stages {
     stage('Build') {
       steps {
@@ -64,7 +72,8 @@ spec:
           container('docker') {
             sh '''
               echo "Publish Docker Image to Nexus"
-              docker login -u _json_key -p ${cat CREDENTIALS_ID} ${google_repo}
+              echo "$(cat $CREDENTIALS_ID)"
+              docker login -u _json_key -p "$(cat $CREDENTIALS_ID)" ${google_repo}
               docker build -t ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f Dockerfile .
               docker push ${google_repo}/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
             '''
