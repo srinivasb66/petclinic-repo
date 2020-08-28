@@ -18,11 +18,12 @@ spec:
     }
   }
   parameters {
-    string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
+    //string(name: 'version', defaultValue: '0.1', description: 'Version override appended to maven version number')
+    string(name:'CLUSTER_NAME', defaultValue: 'pocep-demo', description : 'GKE Cluster name' )
   } 
   environment {
         PROJECT_ID = "us-con-gcp-npr-0000266-072920"
-        CLUSTER_NAME = "pocep-demo"
+        //CLUSTER_NAME = "pocep-demo"
         LOCATION = "us-east1-b"
         CREDENTIALS_ID=credentials('pocep-key')
         //dockerKey=credentials('dockerKey')
