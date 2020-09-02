@@ -39,7 +39,7 @@ spec:
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh('kubectl get nodes')
                sh('pwd;ls -lrt')
-               sh('kubectl apply -f cicd/deploy/gcp/gke/manifests/demo.yaml')
+               sh('kubectl apply -f cicd/deploy/manifests/demo.yaml')
              
            }
            
