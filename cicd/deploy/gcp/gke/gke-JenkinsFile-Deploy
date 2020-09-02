@@ -38,7 +38,7 @@ spec:
                '''
                sh('gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${LOCATION} --project ${PROJECT_ID}')
                sh('kubectl get nodes')
-               sh('kubectl apply -f ../manifests/demo.yaml')
+               sh('kubectl apply -f ../../manifests/demo.yaml')
              
            }
            
