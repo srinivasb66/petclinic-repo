@@ -76,7 +76,7 @@ spec:
               echo "Publish Docker Image to GCR"
               echo $CREDENTIALS_ID
               docker login -u _json_key -p "$(cat $CREDENTIALS_ID)" ${google_repo}
-              docker build -t ${google_repo}/$PROJECT_ID/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f Dockerfile ../../.
+              docker build -t ${google_repo}/$PROJECT_ID/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM} -f ../../Dockerfile
               docker push ${google_repo}/$PROJECT_ID/${dcp_demo_app_tag}:${PETCLINIC_VERSION_CUSTOM}
             '''
           }
